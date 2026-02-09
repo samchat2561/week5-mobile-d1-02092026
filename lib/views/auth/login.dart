@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +11,25 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool showPass = false;
+
+  final formState = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  // ===== Validate Email =====
+  bool isEmailValid(String email) {
+    RegExp regex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+    return regex.hasMatch(email);
+  }
+
+  void login() {
+    if (formState.currentState!.validate()) {
+      debugPrint(emailController.text);
+      debugPrint(passwordController.text);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +67,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 // =====Form Login =====
                 Form(
+                  key: formState,
                   child: Column(
                     children: [
                       // =====Enter Field Email =====
                       TextFormField(
+                        controller: emailController,
                         keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            debugPrint("Email is empty");
+                            return "email is empty";
+                          } else if(!isEmailValid(value)){
+                            debugPrint("Error is email");
+                            return "Error is email";
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           hintText: "Enter your email or username",
                           label: Text("Email or username"),
@@ -73,7 +106,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 10.0),
                       // =====Enter Field Password =====
                       TextFormField(
+                        controller: passwordController,
                         keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            debugPrint("Password is empty");
+                            return "Password is empty";
+                          }
+                          return null;
+                        },
                         obscureText: !showPass,
                         decoration: InputDecoration(
                           hintText: "Enter your password",
@@ -92,8 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             icon: Icon(
                               showPass
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -109,6 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 10.0),
                       // =====Button Submit Login =====
                       InkWell(
+                        onTap: () {
+                          setState(() {
+                            login();
+                          });
+                        },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           height: 55.0,
