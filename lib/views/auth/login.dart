@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_week15/views/auth/signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -194,7 +195,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 10.0),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                        });
+                      },
                       child: Text(
                         " Sign Up",
                         style: TextStyle(fontSize: 18.0, color: Colors.orange),
