@@ -47,7 +47,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       // =====Enter Field Email =====
-                      TextField(),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Enter your email or password",
+                          label: Text("Email or password"),
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                            fontFamily: "verdana_regular"
+                          ),
+                          prefixIcon: Icon(Icons.email),
+
+                        ),
+                      ),
                       SizedBox(height: 10.0),
                       // =====Enter Field Password =====
                       TextField(),
@@ -82,6 +94,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+                ),
+                // =====Button Link Register =====
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account",
+                      style: TextStyle(fontSize: 18.0, color: Colors.black54),
+                    ),
+                    SizedBox(height: 10.0),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        " Sign Up",
+                        style: TextStyle(fontSize: 18.0, color: Colors.orange),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
