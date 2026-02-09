@@ -8,6 +8,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool showPass = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,22 +50,63 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       // =====Enter Field Email =====
                       TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          hintText: "Enter your email or password",
-                          label: Text("Email or password"),
+                          hintText: "Enter your email or username",
+                          label: Text("Email or username"),
                           labelStyle: TextStyle(
                             color: Colors.grey,
                             fontSize: 18.0,
-                            fontFamily: "verdana_regular"
+                            fontFamily: "verdana_regular",
                           ),
                           prefixIcon: Icon(Icons.email),
-
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
                         ),
                       ),
                       SizedBox(height: 10.0),
                       // =====Enter Field Password =====
-                      TextField(),
-                      SizedBox(height: 15.0),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        obscureText: !showPass,
+                        decoration: InputDecoration(
+                          hintText: "Enter your password",
+                          label: Text("password"),
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                            fontFamily: "verdana_regular",
+                          ),
+                          prefixIcon: Icon(Icons.vpn_key_sharp),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPass = !showPass;
+                              });
+                            },
+                            icon: Icon(
+                              showPass
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
                       // =====Button Submit Login =====
                       InkWell(
                         child: Container(
